@@ -12,6 +12,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @RequiredArgsConstructor
 public class PrUpdateRequest {
+    private UUID id;
     private float weight;
     private Exercise exercise;
     private String ownerName;

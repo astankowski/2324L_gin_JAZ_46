@@ -13,7 +13,6 @@ import java.util.UUID;
 @RequiredArgsConstructor
 
 public class PrCreateRequest {
-    private UUID id;
     private float weight;
     private Exercise exercise;
     private String ownerName;
