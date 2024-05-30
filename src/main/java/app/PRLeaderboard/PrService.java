@@ -12,8 +12,9 @@ import java.util.stream.Collectors;
 public class PrService {
 
     private final PrRepository repository;
+    //Pr pr = PrMapper.INSTANCE.toPr(PrDTO prResponse);
 
-    public PrResponse addPr(PrCreateRequest request){
+    public PrDTO addPr(PrCreateRequest request){
         Pr newPr = new Pr();
         newPr.setWeight(request.getWeight());
         newPr.setExercise(request.getExercise());
@@ -21,7 +22,7 @@ public class PrService {
 
         Pr saved = repository.save(newPr);
 
-        PrResponse response = new PrResponse();
+        PrDTO response = new PrDTO();
         response.setId(saved.getId());
         response.setWeight(saved.getWeight());
         response.setExercise(saved.getExercise());
@@ -30,18 +31,18 @@ public class PrService {
         return response;
     }
 
-    public List<PrResponse> getAllPrs() {
+    public List<PrDTO> getAllPrs() {
         return repository
                 .findAll()
                 .stream()
-                .map(pr -> new PrResponse(pr.getId(), pr.getWeight(), pr.getExercise(), pr.getOwnerName()))
+                .map(pr -> new PrDTO(pr.getId(), pr.getWeight(), pr.getExercise(), pr.getOwnerName()))
                 .collect(Collectors.toList());
     }
 
-    public PrResponse getPr(UUID id) {
+    public PrDTO getPr(UUID id) {
         Pr saved = repository.getReferenceById(id);
 
-        PrResponse response = new PrResponse();
+        PrDTO response = new PrDTO();
         response.setId(saved.getId());
         response.setWeight(saved.getWeight());
         response.setExercise(saved.getExercise());
@@ -50,13 +51,14 @@ public class PrService {
         return response;
     }
 
-    public PrResponse updatePr(UUID id, PrUpdateRequest request) {
+    public PrDTO updatePr(UUID id, PrDTO request) {
         Pr Pr = repository.getReferenceById(id);
+        //toPr(PrDTO request);
         Pr.setWeight(request.getWeight());
         Pr.setExercise(request.getExercise());
         Pr.setOwnerName(request.getOwnerName());
 
-        PrResponse response = new PrResponse();
+        PrDTO response = new PrDTO();
         response.setId(Pr.getId());
         response.setWeight(Pr.getWeight());
         response.setExercise(Pr.getExercise());

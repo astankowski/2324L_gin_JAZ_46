@@ -14,22 +14,22 @@ public class PrController {
 
 
     @PostMapping("/addPr")
-    public PrResponse createPr(@RequestBody PrCreateRequest request){
+    public PrDTO createPr(@RequestBody PrCreateRequest request){
         return service.addPr(request);
     }
 
     @GetMapping("/getPrs")
-    public List<PrResponse> getPrs(){
+    public List<PrDTO> getPrs(){
         return service.getAllPrs();
     }
 
     @GetMapping("/getPr/{id}")
-    public PrResponse getPr(@PathVariable UUID id){
+    public PrDTO getPr(@PathVariable UUID id){
         return service.getPr(id);
     }
 
     @PutMapping("/updatePr/{id}")
-    public PrResponse updatePr(@PathVariable UUID id, @RequestBody PrUpdateRequest request){
+    public PrDTO updatePr(@PathVariable UUID id, @RequestBody PrUpdateRequest request){
         return service.updatePr(id, request);
     }
 
