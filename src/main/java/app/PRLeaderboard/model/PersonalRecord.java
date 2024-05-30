@@ -1,4 +1,4 @@
-package app.PRLeaderboard;
+package app.PRLeaderboard.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -11,7 +11,7 @@ import java.util.UUID;
 @Data
 @Entity
 @Table(name = "prs")
-public class Pr {
+public class PersonalRecord {
     @Id
     @UuidGenerator
     private UUID id;

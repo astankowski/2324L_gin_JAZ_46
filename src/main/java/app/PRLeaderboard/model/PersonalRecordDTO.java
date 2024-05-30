@@ -1,4 +1,4 @@
-package app.PRLeaderboard;
+package app.PRLeaderboard.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,7 +12,8 @@ import java.util.UUID;
 @AllArgsConstructor
 @RequiredArgsConstructor
 
-public class PrCreateRequest {
+public class PersonalRecordDTO {
+    private UUID id;
     private float weight;
     private Exercise exercise;
     private String ownerName;
