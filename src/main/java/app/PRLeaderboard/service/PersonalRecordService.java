@@ -1,7 +1,7 @@
 package app.PRLeaderboard.service;
 
+import app.PRLeaderboard.mapper.PersonalRecordMapper;
 import app.PRLeaderboard.model.PersonalRecord;
-import app.PRLeaderboard.model.PersonalRecordCreateRequest;
 import app.PRLeaderboard.model.PersonalRecordDTO;
 import app.PRLeaderboard.repository.PrRepository;
 import lombok.RequiredArgsConstructor;
@@ -14,64 +14,33 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class PersonalRecordService {
-
     private final PrRepository repository;
-    //Pr pr = PrMapper.INSTANCE.toPr(PrDTO prResponse);
-
-    public PersonalRecordDTO addPr(PersonalRecordCreateRequest request){
-        PersonalRecord newPersonalRecord = new PersonalRecord();
-        newPersonalRecord.setWeight(request.getWeight());
-        newPersonalRecord.setExercise(request.getExercise());
-        newPersonalRecord.setOwnerName(request.getOwnerName());
-
-        PersonalRecord saved = repository.save(newPersonalRecord);
-
-        PersonalRecordDTO response = new PersonalRecordDTO();
-        response.setId(saved.getId());
-        response.setWeight(saved.getWeight());
-        response.setExercise(saved.getExercise());
-        response.setOwnerName(saved.getOwnerName());
-
-        return response;
+    private final PersonalRecordMapper mapper;
+    public PersonalRecordDTO addPersonalRecord(PersonalRecordDTO request){
+        PersonalRecord saved = repository.save(mapper.toEntity(request));
+        return mapper.toDTO(saved);
     }
 
-    public List<PersonalRecordDTO> getAllPrs() {
+    public List<PersonalRecordDTO> getAllPersonalRecords() {
         return repository
                 .findAll()
                 .stream()
-                .map(personalRecord -> new PersonalRecordDTO(personalRecord.getId(), personalRecord.getWeight(), personalRecord.getExercise(), personalRecord.getOwnerName()))
+                .map(mapper::toDTO)
                 .collect(Collectors.toList());
     }
 
-    public PersonalRecordDTO getPr(UUID id) {
-        PersonalRecord saved = repository.getReferenceById(id);
-
-        PersonalRecordDTO response = new PersonalRecordDTO();
-        response.setId(saved.getId());
-        response.setWeight(saved.getWeight());
-        response.setExercise(saved.getExercise());
-        response.setOwnerName(saved.getOwnerName());
-
-        return response;
+    public PersonalRecordDTO getPersonalRecord(UUID id) {
+        return mapper.toDTO(repository.getReferenceById(id));
     }
 
-    public PersonalRecordDTO updatePr(UUID id, PersonalRecordDTO request) {
-        PersonalRecord PersonalRecord = repository.getReferenceById(id);
-        //toPr(PrDTO request);
-        PersonalRecord.setWeight(request.getWeight());
-        PersonalRecord.setExercise(request.getExercise());
-        PersonalRecord.setOwnerName(request.getOwnerName());
-
-        PersonalRecordDTO response = new PersonalRecordDTO();
-        response.setId(PersonalRecord.getId());
-        response.setWeight(PersonalRecord.getWeight());
-        response.setExercise(PersonalRecord.getExercise());
-        response.setOwnerName(PersonalRecord.getOwnerName());
-        return response;
+    public PersonalRecordDTO updatePersonalRecord(UUID id, PersonalRecordDTO request) {
+        PersonalRecord personalRecord = repository.getReferenceById(id);
+        mapper.updateEntity(request, personalRecord);
+        PersonalRecord saved = repository.save(personalRecord);
+        return mapper.toDTO(saved);
     }
 
-    public void deletePr(UUID id) {
+    public void deletePersonalRecord(UUID id) {
         repository.deleteById(id);
     }
 }
-

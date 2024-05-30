@@ -1,17 +1,10 @@
 package app.PRLeaderboard.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.UUID;
 
-@Getter
-@Setter
-@AllArgsConstructor
-@RequiredArgsConstructor
-
+@Data
 public class PersonalRecordDTO {
     private UUID id;
     private float weight;
