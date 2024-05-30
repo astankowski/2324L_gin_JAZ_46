@@ -1,0 +1,138 @@
+openapi: 3.0.3
+info:
+  title: PRLeaderboard - OpenAPI 3.0
+  description: |
+    [The PRLeaderboard repository](https://github.com/astankowski/2324L_gin_JAZ_46)
+  version: 1.0.11
+tags:
+  - name: PR
+    description: Operations about personal records
+paths:
+  /addPr:
+    post:
+      tags:
+        - PR
+      summary: Add a PR
+      operationId: addPr
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PR'
+  /getPrs:
+    get:
+      tags:
+        - PR
+      summary: Get all prs
+      operationId: getAllPrs
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items: 
+                  $ref: '#/components/schemas/PR'
+  /getPr/{id}:
+    parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+    get:
+      tags:
+        - PR
+      summary: Get a PR by ID
+      operationId: getPr
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PR'
+  /updatePr/{id}:
+    parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+    put:
+      tags:
+        - PR
+      summary: Update an existing PR by ID
+      operationId: updatePr
+      requestBody:
+        description: Update an existent PR in the leaderboard
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PR'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PR'          
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: PR not found
+        '422':
+          description: Validation exception
+  /deletePr/{id}:
+    parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+    delete:
+      tags:
+      - PR
+      summary: Delete a PR by Id
+      operationId: deletePr
+      responses:
+            '200':
+              description: Successful operation
+  
+  
+components:
+  schemas:
+    PR:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: 97b8d2c4-0eeb-4c42-ba5c-d6ed6a2efd76
+        weight:
+          type: number
+          multipleOf: 0.25
+          example: 117.5
+        exercise:
+          type: string
+          description: Exercise name
+          example: BENCH_PRESS
+          enum:
+            - BENCH_PRESS
+            - SQUAT
+            - DEADLIFT
+            - OVERHEAD_PRESS
+            - BARBELL_ROW
+        ownerName:
+          type: string
+          description: Name of the owner
+          example: Olek
+      xml:
+        name: order
