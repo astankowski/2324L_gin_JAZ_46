@@ -9,13 +9,10 @@ import java.util.UUID;
 
 @Data
 @Entity
-@Table(name = "Personal_Records")
-public class PersonalRecord {
+@Table(name = "Exercise_Dictionary")
+public class ExerciseDictionary {
     @Id
-    @UuidGenerator
     private UUID id;
-    private float weight;
-    @Dictionary("Exercise_Dictionary")
-    private String exercise;
-    private String ownerName;
+    private String name;
+    private String value;
 }

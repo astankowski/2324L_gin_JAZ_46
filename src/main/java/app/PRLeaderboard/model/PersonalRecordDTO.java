@@ -1,5 +1,7 @@
 package app.PRLeaderboard.model;
 
+import app.PRLeaderboard.annotation.Dictionary;
+import jakarta.validation.Valid;
 import lombok.*;
 
 import java.util.UUID;
@@ -8,6 +10,7 @@ import java.util.UUID;
 public class PersonalRecordDTO {
     private UUID id;
     private float weight;
-    private Exercise exercise;
+    @Dictionary("Exercise_Dictionary")
+    private String exercise;
     private String ownerName;
 }

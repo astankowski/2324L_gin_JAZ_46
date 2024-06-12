@@ -1,3 +1,17 @@
+create table if not exists Exercise_Dictionary(
+                                                  ID uuid not null,
+                                                  NAME varchar(255),
+                                                  VALUE varchar(255),
+                                                  PRIMARY KEY ( ID )
+);
+
+INSERT INTO Exercise_Dictionary (id, name, value) VALUES
+                                                      ('123e4567-e89b-12d3-a456-426614174000', 'exercise', 'BENCH_PRESS'),
+                                                      ('123e4567-e89b-12d3-a456-426614174001', 'exercise', 'SQUAT'),
+                                                      ('123e4567-e89b-12d3-a456-426614174002', 'exercise', 'DEADLIFT'),
+                                                      ('123e4567-e89b-12d3-a456-426614174003', 'exercise', 'OVERHEAD_PRESS'),
+                                                      ('123e4567-e89b-12d3-a456-426614174004', 'exercise', 'BARBELL_ROW');
+
 create table if not exists Personal_Records(
                     ID uuid not null,
                     WEIGHT varchar(255),

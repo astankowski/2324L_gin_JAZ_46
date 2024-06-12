@@ -2,6 +2,7 @@ package app.PRLeaderboard.controller;
 
 import app.PRLeaderboard.model.PersonalRecordDTO;
 import app.PRLeaderboard.service.PersonalRecordService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +20,7 @@ public class PersonalRecordController {
 
 
     @PostMapping("/addPersonalRecord")
-    public ResponseEntity<PersonalRecordDTO> addPersonalRecord(@RequestBody PersonalRecordDTO request){
+    public ResponseEntity<PersonalRecordDTO> addPersonalRecord(@Valid @RequestBody PersonalRecordDTO request){
         return ok(service.addPersonalRecord(request));
     }
 
@@ -34,7 +35,7 @@ public class PersonalRecordController {
     }
 
     @PutMapping("/updatePersonalRecord/{id}")
-    public ResponseEntity<PersonalRecordDTO> updatePersonalRecord(@PathVariable UUID id, @RequestBody PersonalRecordDTO request){
+    public ResponseEntity<PersonalRecordDTO> updatePersonalRecord(@PathVariable UUID id, @Valid @RequestBody PersonalRecordDTO request){
         return ok(service.updatePersonalRecord(id, request));
     }
 

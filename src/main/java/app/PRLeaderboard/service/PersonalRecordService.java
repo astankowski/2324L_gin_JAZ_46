@@ -4,6 +4,7 @@ import app.PRLeaderboard.mapper.PersonalRecordMapper;
 import app.PRLeaderboard.model.PersonalRecord;
 import app.PRLeaderboard.model.PersonalRecordDTO;
 import app.PRLeaderboard.repository.PrRepository;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +17,7 @@ import java.util.stream.Collectors;
 public class PersonalRecordService {
     private final PrRepository repository;
     private final PersonalRecordMapper mapper;
-    public PersonalRecordDTO addPersonalRecord(PersonalRecordDTO request){
+    public PersonalRecordDTO addPersonalRecord(@Valid PersonalRecordDTO request){
         PersonalRecord saved = repository.save(mapper.toEntity(request));
         return mapper.toDTO(saved);
     }
@@ -33,7 +34,7 @@ public class PersonalRecordService {
         return mapper.toDTO(repository.getReferenceById(id));
     }
 
-    public PersonalRecordDTO updatePersonalRecord(UUID id, PersonalRecordDTO request) {
+    public PersonalRecordDTO updatePersonalRecord(UUID id, @Valid PersonalRecordDTO request) {
         PersonalRecord personalRecord = repository.getReferenceById(id);
         mapper.updateEntity(request, personalRecord);
         PersonalRecord saved = repository.save(personalRecord);
